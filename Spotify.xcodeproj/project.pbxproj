@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20A762B271766B900075717 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20A762A271766B900075717 /* Extensions.swift */; };
 		B25CD46027160CA3005DD73E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD45F27160CA3005DD73E /* AppDelegate.swift */; };
 		B25CD46227160CA3005DD73E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD46127160CA3005DD73E /* SceneDelegate.swift */; };
 		B25CD46427160CA3005DD73E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD46327160CA3005DD73E /* HomeViewController.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20A762A271766B900075717 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B25CD45C27160CA3005DD73E /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B25CD45F27160CA3005DD73E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B25CD46127160CA3005DD73E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				B25CD46827160CA5005DD73E /* Assets.xcassets */,
 				B25CD45F27160CA3005DD73E /* AppDelegate.swift */,
 				B25CD46127160CA3005DD73E /* SceneDelegate.swift */,
+				B20A762A271766B900075717 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				B25CD46027160CA3005DD73E /* AppDelegate.swift in Sources */,
 				B25CD49C27160FF3005DD73E /* LibraryViewController.swift in Sources */,
 				B25CD4BA27161119005DD73E /* UserProfile.swift in Sources */,
+				B20A762B271766B900075717 /* Extensions.swift in Sources */,
 				B25CD4AA27161086005DD73E /* PlaylistViewController.swift in Sources */,
 				B25CD4B82716110D005DD73E /* Artist.swift in Sources */,
 				B25CD46227160CA3005DD73E /* SceneDelegate.swift in Sources */,

@@ -35,6 +35,7 @@
 		B25CD4B82716110D005DD73E /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD4B72716110D005DD73E /* Artist.swift */; };
 		B25CD4BA27161119005DD73E /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD4B927161119005DD73E /* UserProfile.swift */; };
 		B29EB2652718B2A8005F584A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29EB2642718B2A8005F584A /* Constants.swift */; };
+		B29EB2672718BBD8005F584A /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29EB2662718BBD8005F584A /* AuthResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		B25CD4B72716110D005DD73E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		B25CD4B927161119005DD73E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		B29EB2642718B2A8005F584A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B29EB2662718BBD8005F584A /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 				B25CD4B527161105005DD73E /* AudioTrack.swift */,
 				B25CD4B72716110D005DD73E /* Artist.swift */,
 				B25CD4B927161119005DD73E /* UserProfile.swift */,
+				B29EB2662718BBD8005F584A /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				B25CD4A82716106A005DD73E /* PlayerViewController.swift in Sources */,
 				B25CD4AC271610A2005DD73E /* SearchResultViewController.swift in Sources */,
 				B25CD4B0271610D4005DD73E /* APICaller.swift in Sources */,
+				B29EB2672718BBD8005F584A /* AuthResponse.swift in Sources */,
 				B25CD4A427161050005DD73E /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

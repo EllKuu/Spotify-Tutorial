@@ -10,11 +10,6 @@ import Foundation
 final class AuthManager{
     static let shared = AuthManager()
     
-    struct Constants{
-        static let clientID = "3b8a6613d348457ea3ca779d37e83136"
-        static let clientSecret =  "2ba2e20370e943799f875783f03e4946"
-    }
-    
     public var signInURL: URL? {
         let scopes = "user-read-private"
         let redirectURI = "https://www.iosacademy.io"

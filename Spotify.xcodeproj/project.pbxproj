@@ -34,6 +34,7 @@
 		B25CD4B627161105005DD73E /* AudioTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD4B527161105005DD73E /* AudioTrack.swift */; };
 		B25CD4B82716110D005DD73E /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD4B72716110D005DD73E /* Artist.swift */; };
 		B25CD4BA27161119005DD73E /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25CD4B927161119005DD73E /* UserProfile.swift */; };
+		B29EB2652718B2A8005F584A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29EB2642718B2A8005F584A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		B25CD4B527161105005DD73E /* AudioTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTrack.swift; sourceTree = "<group>"; };
 		B25CD4B72716110D005DD73E /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		B25CD4B927161119005DD73E /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		B29EB2642718B2A8005F584A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		B25CD49327160D15005DD73E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				B29EB2642718B2A8005F584A /* Constants.swift */,
 				B25CD4AD271610C6005DD73E /* AuthManager.swift */,
 				B25CD4AF271610D4005DD73E /* APICaller.swift */,
 				B25CD4B1271610E3005DD73E /* HapticsManager.swift */,
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B25CD49A27160FE3005DD73E /* SearchViewController.swift in Sources */,
+				B29EB2652718B2A8005F584A /* Constants.swift in Sources */,
 				B25CD4B4271610F9005DD73E /* Playlist.swift in Sources */,
 				B25CD4AE271610C6005DD73E /* AuthManager.swift in Sources */,
 				B25CD4A227161040005DD73E /* WelcomeViewController.swift in Sources */,

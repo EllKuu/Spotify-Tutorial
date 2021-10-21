@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         
         if AuthManager.shared.isSignedIn {
+            // if user is already signed in lets start refreshing the token already if needed 
+            AuthManager.shared.refreshAccessTokenIfNeeded(completion: nil)
             window.rootViewController = TabBarViewController()
         }
         else{

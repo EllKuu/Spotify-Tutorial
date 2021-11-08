@@ -119,22 +119,23 @@ extension SearchViewController: SearchResultsViewControllerDelegate{
     
     func didTapResult(_ result: SearchResult) {
         switch result{
-        case .artist(let model):
-            guard let url = URL(string: model.external_urls["spotify"] ?? "") else {
+        case .artist(let artist):
+            guard let url = URL(string: artist.external_urls["spotify"] ?? "") else {
                 return
             }
             let vc = SFSafariViewController(url: url)
             present(vc, animated: true)
-        case .album(let model):
-            let vc = AlbumViewController(album: model)
+        case .album(let album):
+            let vc = AlbumViewController(album: album)
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
-        case .playlist(let model):
-            let vc = PlaylistViewController(playlist: model)
+        case .playlist(let playlist):
+            let vc = PlaylistViewController(playlist: playlist)
             vc.navigationItem.largeTitleDisplayMode = .never
             navigationController?.pushViewController(vc, animated: true)
-        case .track(let model):
-            break
+        case .track(let track):
+            PlaybackPresenter.startPlayback(from: self, track: track)
+            
         }
     }
     

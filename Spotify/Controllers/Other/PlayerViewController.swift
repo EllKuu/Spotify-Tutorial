@@ -6,9 +6,20 @@
 //
 
 import UIKit
+import SDWebImage
+
+protocol PlayerViewControllerDelegate: AnyObject{
+    func didTapPlayPause()
+    func didTapNext()
+    func didTapBack()
+    func didSlideSlider(_ value: Float)
+}
 
 class PlayerViewController: UIViewController {
 
+    weak var dataSource: PlayerDataSource?
+    weak var delegate: PlayerViewControllerDelegate?
+    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -24,8 +35,11 @@ class PlayerViewController: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
         view.addSubview(controlsView)
-        configureBarButtons()
         controlsView.delegate = self
+        configureBarButtons()
+        configure()
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -45,6 +59,16 @@ class PlayerViewController: UIViewController {
         
     }
     
+    private func configure(){
+        imageView.sd_setImage(with: dataSource?.imageURL, completed: nil)
+        controlsView.configure(
+            with: PlayerControlsViewViewModel(
+                title: dataSource?.songName,
+                subtitle: dataSource?.subtitle
+            )
+        )
+    }
+    
     private func configureBarButtons(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(didTapAction))
@@ -61,16 +85,21 @@ class PlayerViewController: UIViewController {
 }
 
 extension PlayerViewController: PlayerControlsViewDelegate{
+    
+    func playersControlsView(_ playerControlsView: PlayerControlsView, didSlideSlider value: Float) {
+        delegate?.didSlideSlider(value)
+    }
+    
     func playerControlsViewDidTapPlayPauseButton(_ playerControlsView: PlayerControlsView) {
-        <#code#>
+        delegate?.didTapPlayPause()
     }
     
     func playerControlsViewDidTapNextButton(_ playerControlsView: PlayerControlsView) {
-        <#code#>
+        delegate?.didTapNext()
     }
     
     func playerControlsViewDidTapBackwardButton(_ playerControlsView: PlayerControlsView) {
-        <#code#>
+        delegate?.didTapBack()
     }
     
     

@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
     private var newAlbums: [Album] = []
     private var playlists: [Playlist] = []
     private var tracks: [AudioTrack] = []
-
+    
     private var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout:  UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
@@ -53,24 +53,71 @@ class HomeViewController: UIViewController {
         title = "Browse"
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem( image: UIImage(systemName: "gear"),
-                                                                                         style: .done,
-                                                                                         target: self,
-                                                                                         action: #selector(didTapSettings))
+                                                             style: .done,
+                                                             target: self,
+                                                             action: #selector(didTapSettings))
         
-       
+        
         // need to add collectionView as first view to get title scrolling to be working
         configureCollectionView()
         view.addSubview(spinner)
         fetchData()
-        
-        }
+        addLongTapGesture()
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         collectionView.frame = view.bounds
     }
+    
+    private func addLongTapGesture(){
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(didLongPress(_:)))
+        collectionView.isUserInteractionEnabled = true
+        collectionView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func didLongPress(_ gesture: UILongPressGestureRecognizer){
+        guard gesture.state == .began else {
+            return
+        }
+        
+        let touchPoint = gesture.location(in: collectionView)
+        print("touchpoint: \(touchPoint)")
+        guard let indexPath = collectionView.indexPathForItem(at: touchPoint),
+        indexPath.section == 2
+        else {
+            return
+        }
+        
+        let model = tracks[indexPath.row]
+        
+        let actionSheet = UIAlertController(
+            title: model.name,
+            message: "Would you like to add this to a playlist?",
+            preferredStyle: .actionSheet
+        )
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Add to Playlist", style: .default, handler: { [weak self]_ in
+            DispatchQueue.main.async {
+                let vc = LibraryPlaylistViewController()
+                vc.selectionHandler = { playlist in
+                    APICaller.shared.addTrackToPlaylist(
+                        track: model, 
+                        playlist: playlist
+                    ) { success in
+                        print("added to playlist sucess: \(success)")
+                    }
+                }
+                vc.title = "Select Playlist"
+                
+                self?.present(UINavigationController(rootViewController: vc), animated: true)
+            }
+        }))
+        present(actionSheet, animated: true)
         
         
+    }
+    
     private func configureCollectionView(){
         view.addSubview(collectionView)
         collectionView.register(NewReleaseCollectionViewCell.self, forCellWithReuseIdentifier: NewReleaseCollectionViewCell.identifier)
@@ -84,14 +131,14 @@ class HomeViewController: UIViewController {
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: TitleHeaderCollectionReusableView.identifier
         )
-    
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
     }
     
     
-   
+    
     
     private func fetchData(){
         let group = DispatchGroup()
@@ -167,7 +214,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-   
+    
     private func configureModels(
         newAlbums: [Album],
         playlists: [Playlist],
@@ -200,7 +247,7 @@ class HomeViewController: UIViewController {
         })))
         collectionView.reloadData()
     }
-
+    
     
     @objc func didTapSettings(){
         let vc = SettingsViewController()
@@ -208,7 +255,7 @@ class HomeViewController: UIViewController {
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -226,7 +273,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let viewModel = viewModels[indexPath.row]
             cell.configure(with: viewModel)
             return cell
-           
+            
         case .featuredPlaylists(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: FeaturedPlaylistCollectionViewCell.identifier,
@@ -236,7 +283,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             cell.configure(with: viewModels[indexPath.row])
             return cell
-           
+            
         case .recommendedTracks(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: RecommendedTrackCollectionViewCell.identifier,
@@ -250,7 +297,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
         
         
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -327,13 +374,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 )
             )
             
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
             // vertical group in a horizontal group
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
-                                                widthDimension: .fractionalWidth(0.9),
-                                                heightDimension: .absolute(390)
+                    widthDimension: .fractionalWidth(0.9),
+                    heightDimension: .absolute(390)
                 ),
                 subitem: item,
                 count: 3
@@ -341,8 +388,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
-                                                widthDimension: .fractionalWidth(0.9),
-                                                heightDimension: .absolute(390)
+                    widthDimension: .fractionalWidth(0.9),
+                    heightDimension: .absolute(390)
                 ),
                 subitem: verticalGroup,
                 count: 1
@@ -363,7 +410,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 )
             )
             
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
             let verticalGroup = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
@@ -373,7 +420,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 subitem: item,
                 count: 2
             )
-         
+            
             
             let horizontalGroup = NSCollectionLayoutGroup.horizontal(
                 layoutSize: NSCollectionLayoutSize(
@@ -399,12 +446,12 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 )
             )
             
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
-                                                widthDimension: .fractionalWidth(1),
-                                                heightDimension: .absolute(80)
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(80)
                 ),
                 subitem: item,
                 count: 1
@@ -424,13 +471,13 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 )
             )
             
-        item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 2, bottom: 2, trailing: 2)
             
             // group
             let group = NSCollectionLayoutGroup.vertical(
                 layoutSize: NSCollectionLayoutSize(
-                                                widthDimension: .fractionalWidth(0.9),
-                                                heightDimension: .absolute(390)
+                    widthDimension: .fractionalWidth(0.9),
+                    heightDimension: .absolute(390)
                 ),
                 subitem: item,
                 count: 1

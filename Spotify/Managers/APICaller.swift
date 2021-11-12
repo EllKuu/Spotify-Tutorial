@@ -41,13 +41,39 @@ final class APICaller {
                 }catch{
                     completion(.failure(error))
                 }
+            }
+            task.resume()
+        }
+    }
+    
+    // this api call is failing "data couldnt be read because it is missing" coding keys not found ?? need to trouble shoot
+    // later iOS Academy video 25
+    public func getCurrentUserAlbums(completion: @escaping (Result<[Album], Error>) -> Void){
+        createRequest(
+            with: URL(string: Constants.baseAPIURL + "/me/albums"),
+            type: .GET
+        ) { request in
+            let task = URLSession.shared.dataTask(with: request) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(.failure(APIError.failedToGetData))
+                    return
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode(LibraryAlbumsResponse.self, from: data)
+                    print(result)
+                    completion(.success(result.items))
+                }catch{
+                    completion(.failure(error))
+                }
                 
                 
             }
             task.resume()
         }
-        
     }
+    
+    
     
     // MARK: Playlists
     public func getPlaylistDetails(for playlist: Playlist, completion: @escaping (Result<PlaylistDetailsResponse, Error>) -> Void){
@@ -67,12 +93,9 @@ final class APICaller {
                 }catch{
                     completion(.failure(error))
                 }
-                
-                
             }
             task.resume()
         }
-        
     }
     
     public func getCurrentUserPlaylists(completion: @escaping(Result<[Playlist], Error>) -> Void){
